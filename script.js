@@ -1,5 +1,5 @@
-// Центр: г. Москва, ул. Ташкентская, 9 (ваши координаты)
-const CENTER = [55.708227, 37.819253];
+// Центр района Выхино-Жулебино (примерно)
+const CENTER = [55.7150, 37.8300];
 
 const employees = [
   { name: "Иванов Иван Иванович",         role: "Руководитель отделения", birth: "12.03.1985" },
@@ -12,22 +12,12 @@ const employees = [
   { name: "Зайцева Ольга Игоревна",       role: "Сотрудник кассы",        birth: "21.07.1991" },
 ];
 
-const map = L.map('map', { zoomControl: true }).setView(CENTER, 18);
+const map = L.map('map', { zoomControl: true }).setView(CENTER, 14);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap'
 }).addTo(map);
-
-// Метка дома (жёлтая)
-L.marker(CENTER, {
-  icon: L.divIcon({
-    className: '',
-    html: '<div style="background:#ffd400;width:14px;height:14px;border-radius:50%;border:2px solid #000;"></div>',
-    iconSize: [14, 14],
-    iconAnchor: [7, 7]
-  })
-}).addTo(map).bindPopup('<b>Объект:</b> ул. Ташкентская, 9');
 
 // Красный пульсирующий маркер
 const redIcon = L.divIcon({
@@ -37,7 +27,7 @@ const redIcon = L.divIcon({
   iconAnchor: [9, 9]
 });
 
-// Разброс точек вокруг центра в радиусе ~15 м
+// Разброс точек по району в радиусе ~1.5 км
 function jitter(base, radiusMeters) {
   const angle = Math.random() * 2 * Math.PI;
   const r = Math.random() * radiusMeters;
@@ -52,7 +42,7 @@ const countEl = document.getElementById('count');
 countEl.textContent = employees.length;
 
 employees.forEach((emp) => {
-  const pos = jitter(CENTER, 15); // радиус разброса 15 метров
+  const pos = jitter(CENTER, 1500); // радиус разброса 1500 метров (1.5 км)
   const marker = L.marker(pos, { icon: redIcon }).addTo(map);
   marker.bindPopup(
     `<b>${emp.name}</b><br>${emp.role}<br>
@@ -63,7 +53,7 @@ employees.forEach((emp) => {
   const li = document.createElement('li');
   li.innerHTML = `<b>${emp.name}</b><span>${emp.role}</span>`;
   li.addEventListener('click', () => {
-    map.setView(pos, 19);
+    map.setView(pos, 16);
     L.popup().setLatLng(pos)
       .setContent(`<b>${emp.name}</b><br>${emp.role}`).openOn(map);
   });
