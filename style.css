@@ -85,7 +85,7 @@ html, body { height: 100%; font-family: "Segoe UI", Arial, sans-serif; backgroun
 /* Карта */
 #map { flex: 1; }
 
-/* СТАТИЧНЫЙ КРАСНЫЙ МАРКЕР (без пульсации и движения) */
+/* СТАТИЧНЫЙ КРАСНЫЙ МАРКЕР */
 .marker-pin {
   width: 18px; 
   height: 18px; 
@@ -105,4 +105,9 @@ html, body { height: 100%; font-family: "Segoe UI", Arial, sans-serif; backgroun
     border-bottom: 1px solid #232838; 
   }
   #map { height: 60vh; }
+}
+
+/* Скрываем логотип Leaflet с флагом в правом нижнем углу */
+.leaflet-control-attribution {
+  display: none !important;
 }
