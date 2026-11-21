@@ -1,20 +1,80 @@
-// Центр района Выхино-Жулебино
-const CENTER = [55.7150, 37.8300];
+// Центр: г. Москва, ул. Декабристов, 10к2
+const CENTER = [55.865728, 37.598232];
 
 const employees = [
-  { name: "Иванов Иван Иванович", role: "Руководитель отделения", birth: "12.03.1985", address: "ул. Хлобыстова, 14", type: "static", lat: 55.7168, lng: 37.8285 },
-  { name: "Петрова Анна Сергеевна", role: "Заведующая отделением", birth: "07.11.1990", address: "ул. Ташкентская, 25", type: "static", lat: 55.7125, lng: 37.8330 },
-  { name: "Сидоров Алексей Петрович", role: "Операционист", birth: "25.06.1988", address: "ул. Ферганская, 8", type: "moving", route: [[55.7180, 37.8260], [55.7190, 37.8310], [55.7195, 37.8350]] },
-  { name: "Кузнецова Мария Владимировна", role: "Операционист", birth: "14.02.1992", address: "ул. Юных Ленинцев, 71", type: "moving", route: [[55.7130, 37.8280], [55.7145, 37.8330], [55.7175, 37.8380]] },
-  { name: "Смирнов Дмитрий Олегович", role: "Операционист", birth: "30.09.1983", address: "ул. Привольная, 45", type: "moving", route: [[55.7195, 37.8350], [55.7170, 37.8390], [55.7100, 37.8370]] },
-  { name: "Волкова Елена Андреевна", role: "Сотрудник кассы", birth: "18.04.1995", address: "ул. Академика Скрябина, 12", type: "walking", lat: 55.7115, lng: 37.8245 },
-  { name: "Морозов Сергей Николаевич", role: "Сотрудник кассы", birth: "02.12.1987", address: "ул. Зеленодольская, 36", type: "walking", lat: 55.7175, lng: 37.8380 },
-  { name: "Зайцева Ольга Игоревна", role: "Сотрудник кассы", birth: "21.07.1991", address: "ул. Жулебинская, 5", type: "walking", lat: 55.7100, lng: 37.8370 },
+  {
+    name: "Петрова Анна Сергеевна",
+    role: "Заведующая отделением",
+    birth: "07.11.1990",
+    address: "ул. Декабристов, 10к2",
+    type: "static",
+    lat: 55.865728, lng: 37.598232
+  },
+  {
+    name: "Сидоров Алексей Петрович",
+    role: "Операционист",
+    birth: "25.06.1988",
+    address: "ул. Декабристов, 16",
+    type: "moving",
+    route: [
+      [55.865000, 37.597000],
+      [55.866500, 37.599500],
+      [55.867800, 37.601200],
+    ]
+  },
+  {
+    name: "Кузнецова Мария Владимировна",
+    role: "Операционист",
+    birth: "14.02.1992",
+    address: "ул. Декабристов, 22",
+    type: "moving",
+    route: [
+      [55.864500, 37.596000],
+      [55.865800, 37.598500],
+      [55.867000, 37.600800],
+    ]
+  },
+  {
+    name: "Смирнов Дмитрий Олегович",
+    role: "Операционист",
+    birth: "30.09.1983",
+    address: "ул. Декабристов, 27",
+    type: "moving",
+    route: [
+      [55.866200, 37.599800],
+      [55.864800, 37.597500],
+      [55.863500, 37.595800],
+    ]
+  },
+  {
+    name: "Волкова Елена Андреевна",
+    role: "Сотрудник кассы",
+    birth: "18.04.1995",
+    address: "ул. Декабристов, 8",
+    type: "walking",
+    lat: 55.865200, lng: 37.597500
+  },
+  {
+    name: "Морозов Сергей Николаевич",
+    role: "Сотрудник кассы",
+    birth: "02.12.1987",
+    address: "ул. Декабристов, 14",
+    type: "walking",
+    lat: 55.866000, lng: 37.599000
+  },
+  {
+    name: "Зайцева Ольга Игоревна",
+    role: "Сотрудник кассы",
+    birth: "21.07.1991",
+    address: "ул. Декабристов, 18",
+    type: "walking",
+    lat: 55.866800, lng: 37.600200
+  },
 ];
 
 console.log("[tracker] старт, сотрудников:", employees.length);
 
-const map = L.map('map', { zoomControl: true }).setView(CENTER, 14);
+const map = L.map('map', { zoomControl: true }).setView(CENTER, 15);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -54,20 +114,20 @@ employees.forEach((emp) => {
   }
 
   if (emp.type === "moving") animations.push({ kind: "route", marker, route: emp.route });
-  else if (emp.type === "walking") animations.push({ kind: "walk", marker, base: [emp.lat, emp.lng], radius: 0.002 });
+  else if (emp.type === "walking") animations.push({ kind: "walk", marker, base: [emp.lat, emp.lng], radius: 0.0015 });
 });
 
-// ---------- АНИМАЦИЯ через setInterval (надёжнее) ----------
-const ROUTE_CYCLE_MS = 5 * 60 * 1000; // 5 минут
-const WALK_CYCLE_MS = 4 * 60 * 1000;  // 4 минуты
+// ---------- АНИМАЦИЯ ----------
+const ROUTE_CYCLE_MS = 5 * 60 * 1000;
+const WALK_CYCLE_MS = 4 * 60 * 1000;
 const startTime = Date.now();
 
 let tickCount = 0;
 
 function tick() {
   tickCount++;
-  if (tickCount === 1) console.log("[tracker] tick #1 — анимация реально идёт");
-  if (tickCount === 100) console.log("[tracker] tick #100 — всё ок, движение продолжается");
+  if (tickCount === 1) console.log("[tracker] tick #1 — анимация идёт");
+  if (tickCount === 100) console.log("[tracker] tick #100 — всё ок");
 
   const elapsed = Date.now() - startTime;
 
@@ -108,6 +168,5 @@ function tick() {
   });
 }
 
-// Запуск: каждые 50 мс = 20 раз в секунду (плавно)
 setInterval(tick, 50);
 console.log("[tracker] setInterval запущен, tick каждые 50 мс");
