@@ -1,1 +1,40 @@
-<p class="subtitle">г. Москва, ул. Декабристов, 10к2</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мониторинг сотрудников — Декабристов, 10к2</title>
+  
+  <!-- Подключаем стили (наш CSS и карту) -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+
+  <div id="app">
+    <!-- Левая панель -->
+    <aside id="sidebar">
+      <h1>Мониторинг</h1>
+      <p class="subtitle">г. Москва, ул. Декабристов, 10к2</p>
+      
+      <div class="status">
+        <span class="dot"></span> Активных маячков: <b id="count">0</b>
+      </div>
+      
+      <ul id="list"></ul>
+      
+      <div class="legend">
+        <span class="legend-dot"></span> Сотрудник под наблюдением
+      </div>
+    </aside>
+
+    <!-- Сама карта -->
+    <main id="map"></main>
+  </div>
+
+  <!-- Подключаем скрипты (карта и наш JS) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+  
+</body>
+</html>
