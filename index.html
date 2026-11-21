@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Мониторинг сотрудников — Декабристов, 10к2</title>
   
-  <!-- Подключаем стили (наш CSS и карту) -->
+  <!-- Подключаем стили (наш CSS и библиотеку карт) -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
@@ -32,9 +32,10 @@
     <main id="map"></main>
   </div>
 
-  <!-- Подключаем скрипты (карта и наш JS) -->
+  <!-- Подключаем скрипты -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="script.js"></script>
+  <!-- v=999 нужен, чтобы браузер не кэшировал старый script.js с анимацией -->
+  <script src="script.js?v=999"></script>
   
 </body>
 </html>
